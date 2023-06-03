@@ -5,3 +5,10 @@ Client.get("/", ( req, res ) => {
     items: req.session
   })
 })
+
+Client.get("/:sess", ( req, res ) => {
+  req.session.sess = req.params.sess;
+  res.render("index", {
+    items: req.session
+  })
+})

@@ -1,7 +1,7 @@
-const app = require('./app')
+const { Client } = require("./lib/router");
 
-const port = process.env.PORT || 3000
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+Client.get("/", ( req, res ) => {
+  res.render("index", {
+    items: req.session
+  })
 })

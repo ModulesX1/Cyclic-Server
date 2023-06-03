@@ -1,25 +1,34 @@
 {
-  "name": "express-hello-world",
-  "version": "1.0.0",
-  "description": "Expressjs Hello World example to provide faster start deploying on Cyclic platform",
+  "name": "webtoons",
+  "version": "2023.0.1",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "serve": "nodemon --watch . server.js",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "upload": "git add . && git commit -m \"Update\" && git push origin"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cyclic-software/express-hello-world.git"
+    "url": "git+https://github.com/ModulesX1/Cyclic-Server.git"
   },
-  "author": "Cyclic Software",
+  "keywords": [
+    "webtoons",
+    "comic",
+    "cartoon"
+  ],
+  "author": "modulesx1",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cyclic-software/express-hello-world/issues"
+    "url": "https://github.com/ModulesX1/Cyclic-Server/issues"
   },
-  "homepage": "https://github.com/cyclic-software/express-hello-world#readme",
+  "homepage": "https://github.com/ModulesX1/Cyclic-Server#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

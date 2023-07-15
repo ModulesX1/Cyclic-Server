@@ -16,7 +16,7 @@ This is a basic starter Expressjs app with:
   - Command line: `curl -i -XGET "http://localhost:3000/cmd/line-curl"`
 
 ## View page
-[![https://mycomic.cyclic.app](https://deploy.cyclic.app/button.svg)](https://mycomic.cyclic.app)
+[![https://mycomic.cyclic.app](https://img.icons8.com/?size=48&id=TeGcVkPPsvwi&format=svg)](https://mycomic.cyclic.app)
 
 ## Deploy in under 10 seconds
 

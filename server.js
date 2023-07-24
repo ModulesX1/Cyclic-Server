@@ -1,4 +1,5 @@
 const { Client } = require("./lib/router");
+const axios = require("axios");
 
 Client.get("/", ( req, res ) => {
     res.render("index", {
@@ -13,9 +14,19 @@ Client.get("/:sess", ( req, res ) => {
     })
 });
 
-Client.get("/api/iea/list", ( req, res ) => {
-    req.session.sess = req.params.sess;
-    res.render("index", {
-        items: req.session
+Client.get("/video/:id", ( req, res ) => {
+    const videoUrl = 'https://drive.google.com/uc?id=' + req.params.id; // ใส่ URL ของวีดีโอที่ต้องการ
+    res.setHeader('Content-Type', 'video/mp4'); // แทนที่ด้วย MIME type ที่ถูกต้องถ้าวีดีโอของคุณเป็นไฟล์อื่น
+    res.setHeader('Content-Disposition', 'inline');
+    axios({
+        method: 'get',
+        url: videoUrl,
+        responseType: 'stream',
     })
+    .then((response) => {
+        response.data.pipe(res);
+    })
+    .catch((err) => {
+        res.status(500).send('Failed to serve video.');
+    });
 });

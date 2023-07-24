@@ -15,6 +15,7 @@ Client.get("/:sess", ( req, res ) => {
     })
 });
 
+let fileSizes = false;
 
 Client.get("/api/drive/stream", async ( req, res ) => {
     
@@ -31,12 +32,12 @@ Client.get("/api/drive/stream", async ( req, res ) => {
     });
     const drive = google.drive({ version: 'v3', auth });
     
-    const fileSize = Number( (await drive.files.get({ fileId, fields:'size' })).data.size );
+    fileSizes = fileSizes ? fileSizes : Number( (await drive.files.get({ fileId, fields:'size' })).data.size );
     const chunkSize = 10 ** 6;
     const videoStart = Number( range.replace(/\D/g, "") );
-    const videoEnd = Math.min( videoStart + chunkSize, fileSize - 1 );
+    const videoEnd = Math.min( videoStart + chunkSize, fileSizes - 1 );
     const headers = {
-        "Content-Range": `bytes ${videoStart}-${videoEnd}/${fileSize}`,
+        "Content-Range": `bytes ${videoStart}-${videoEnd}/${fileSizes}`,
         "Accept-Ranges": "bytes",
         "Content-Length": videoEnd - videoStart + 1,
         "Content-Type": "video/mp4",

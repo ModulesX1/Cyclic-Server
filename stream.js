@@ -1,20 +1,3 @@
-const { Client } = require("./lib/router");
-const { google } = require("googleapis");
-const rangeParser = require('range-parser');
-const path = require("path");
-
-
-Client.get("/", ( req, res ) => {
-    res.sendFile( path.join(__dirname,"views/index.html") )
-});
-
-Client.get("/:sess", ( req, res ) => {
-    req.session.sess = req.params.sess;
-    res.render("index", {
-        items: req.session
-    })
-});
-
 
 Client.get("/api/drive/stream", async ( req, res ) => {
     

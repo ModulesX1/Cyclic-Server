@@ -31,9 +31,9 @@ Client.get("/api/drive/stream", async ( req, res ) => {
     });
     const drive = google.drive({ version: 'v3', auth });
     
-    const fileSizes = Number( (await drive.files.get({ fileId, fields:'id, name, size, contentHints/thumbnail, videoMediaMetadata, thumbnailLink' })).data.size );
+    const fileSizes = Number( (await drive.files.get({ fileId, fields:'size,videoMediaMetadata' })).data.size );
     const videoStart = Number( range.replace(/\D/g, "") );
-    const videoEnd = Math.min( videoStart + 475e4, fileSizes - 1 );
+    const videoEnd = Math.min( videoStart + 47e5, fileSizes - 1 );
     const headers = {
         "Content-Range": `bytes ${videoStart}-${videoEnd}/${fileSizes}`,
         "Accept-Ranges": "bytes",

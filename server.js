@@ -27,7 +27,7 @@ Client.get("/api/drive/stream", async ( req, res ) => {
     
     const auth = new google.auth.GoogleAuth({
         keyFile: path.join(__dirname, "lib/key/ServiceGoogleDriveKey.json"),
-        scopes: ['https://www.googleapis.com/auth/drive']
+        scopes: ['https://www.googleapis.com/auth/drive.readonly','https://www.googleapis.com/auth/drive.metadata.readonly']
     });
     const drive = google.drive({ version: 'v3', auth });
     

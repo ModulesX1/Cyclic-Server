@@ -11,7 +11,7 @@
         <input class="form-control" onClick="this.select();" type="text" id="metaid" value="origin">
         <button class="btn btn-primary w-100 my-1" onclick="loadSource()">Load</button>
     </div>
-    <video id="stream" class="mx-auto" style="max-width:100%;width:650px" src="/api/drive/stream/origin" controls></video>
+    <video id="stream" class="mx-auto" style="max-width:100%;width:650px" src="/api/drive/origin/stream" controls></video>
 <script>
 function extractGoogleDriveFileId(url) {
   // Regular expression to extract the file ID from the URL for files only
@@ -25,7 +25,7 @@ function extractGoogleDriveFileId(url) {
   }
 }
 function loadSource() {
-    stream.setAttribute("src", "/api/drive/stream/" + String( metaid.value.startsWith("https") ? extractGoogleDriveFileId( metaid.value ) : metaid.value ) );
+    stream.setAttribute("src", "/api/drive/" + String( metaid.value.startsWith("https") ? extractGoogleDriveFileId( metaid.value ) : metaid.value ) + "/stream" );
     stream.load()
 }
 </script>

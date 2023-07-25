@@ -8,11 +8,22 @@
 </head>
 <body class="container">
     <div class="my-3">
-        <input class="form-control" type="text" id="metaid" value="origin">
+        <input class="form-control" onClick="this.select();" type="text" id="metaid" value="origin">
         <button class="btn btn-primary w-100 my-1" onclick="loadSource()">Load</button>
     </div>
     <video id="stream" class="mx-auto" style="max-width:100%;width:650px" src="/api/drive/stream/origin" controls></video>
 <script>
+function extractGoogleDriveFileId(url) {
+  // Regular expression to extract the file ID from the URL for files only
+  const pattern = /(?<=\/d\/|id=)([\w-]+)(?<!\/folders\/)/;
+
+  const match = url.match(pattern);
+  if (match) {
+    return match[1];
+  } else {
+    return "origin;
+  }
+}
 function loadSource() {
     stream.setAttribute("src", "/api/drive/stream/" + metaid.value );
     stream.load()

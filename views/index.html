@@ -11,7 +11,7 @@
         <input class="form-control" type="text" id="metaid" value="origin">
         <button class="btn btn-success w-100 my-1" onclick="loadSource()">Load</button>
     </div>
-    <video id="stream" style="max-width:100%;width:650px" src="/api/drive/stream/origin" controls></video>
+    <video id="stream" class="mx-auto" style="max-width:100%;width:650px" src="/api/drive/stream/origin" controls></video>
 <script>
 function loadSource() {
     stream.setAttribute("src", "/api/drive/stream/" + metaid.value );

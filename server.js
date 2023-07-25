@@ -33,7 +33,7 @@ Client.get("/api/drive/stream", async ( req, res ) => {
     
     const fileSizes = Number( (await drive.files.get({ fileId, fields:'id, name, size, contentHints/thumbnail, videoMediaMetadata, thumbnailLink' })).data.size );
     const videoStart = Number( range.replace(/\D/g, "") );
-    const videoEnd = Math.min( videoStart + 2e6, fileSizes - 1 );
+    const videoEnd = Math.min( videoStart + 35e5, fileSizes - 1 );
     const headers = {
         "Content-Range": `bytes ${videoStart}-${videoEnd}/${fileSizes}`,
         "Accept-Ranges": "bytes",

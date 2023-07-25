@@ -25,7 +25,7 @@ function extractGoogleDriveFileId(url) {
   }
 }
 function loadSource() {
-    stream.setAttribute("src", "/api/drive/stream/" + metaid.value );
+    stream.setAttribute("src", "/api/drive/stream/" + extractGoogleDriveFileId( metaid.value ) );
     stream.load()
 }
 </script>

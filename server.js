@@ -16,14 +16,14 @@ Client.get("/:sess", ( req, res ) => {
 });
 
 
-Client.get("/api/drive/stream", async ( req, res ) => {
+Client.get("/api/drive/stream/:id", async ( req, res ) => {
     
     const range = req.headers.range;
     
     if ( !range ) {
         return res.status(400).send("Requires Range header");
     }
-    const fileId = '1-whLtzgOR1sbdiug6SXYlY7TqKSTgoap';
+    const fileId = req.params.id === "origin" ? '1-whLtzgOR1sbdiug6SXYlY7TqKSTgoap' : req.params.id;
     
     const auth = new google.auth.GoogleAuth({
         keyFile: path.join(__dirname, "lib/key/ServiceGoogleDriveKey.json"),

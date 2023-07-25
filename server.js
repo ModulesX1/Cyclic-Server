@@ -21,7 +21,7 @@ Client.get("/api/drive/stream/:id", async ( req, res ) => {
     const range = req.headers.range;
     
     if ( !range ) {
-        return res.status(400).send("Requires Range header");
+        return res.status(400).json({ code:400, message:"Server cannot or will not process the request due to something that is perceived to be a client error." });
     }
     const fileId = req.params.id === "origin" ? '1-whLtzgOR1sbdiug6SXYlY7TqKSTgoap' : req.params.id;
     
@@ -45,7 +45,6 @@ Client.get("/api/drive/stream/:id", async ( req, res ) => {
     drive.files.get({
         fileId,
         alt: 'media',
-        fields: 'data',
         headers: {
             Range: `bytes=${ videoStart }-${ videoEnd }`
         }

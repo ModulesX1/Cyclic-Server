@@ -16,7 +16,7 @@ Client.get("/:sess", ( req, res ) => {
 });
 
 
-Client.get("/api/drive/stream/:id", async ( req, res ) => {
+Client.get("/api/drive/:id/stream", async ( req, res ) => {
     
     const range = req.headers.range;
     

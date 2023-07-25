@@ -3,6 +3,19 @@ const { google } = require("googleapis");
 const rangeParser = require('range-parser');
 const path = require("path");
 
+class useCache {
+    constructor() {
+        this.metadata = new Object();
+        this.get = function( id ) {
+            return this.metadata[id]
+        };
+        this.set = function( id, size ) {
+            this.metadata[id] = size
+        };
+    }
+}
+
+const useCaches = new useCache();
 
 Client.get("/", ( req, res ) => {
     res.sendFile( path.join(__dirname,"views/index.html") )
@@ -31,7 +44,20 @@ Client.get("/api/drive/:id/stream", async ( req, res ) => {
     });
     const drive = google.drive({ version: 'v3', auth });
     
-    const fileSizes = Number( (await drive.files.get({ fileId, fields:'size,videoMediaMetadata' })).data.size );
+    if ( fileId ) {
+        if ( !useCaches.get( fileId ) ) {
+            useCaches.set( fileId, Number((await drive.files.get({ fileId, fields:'size,videoMediaMetadata' })).data.size) )
+            await drive.files.get({
+                fileId, fields:'size,videoMediaMetadata'
+            }).then( file => useCaches.set( fileId, file.data.size ) ).catch( err => range.error = err )
+        }
+    }
+    
+    if ( range.error ) {
+        return res.status(404);
+    }
+    
+    const fileSizes = useCaches.get( fileId );
     const videoStart = Number( range.replace(/\D/g, "") );
     const videoEnd = Math.min( videoStart + 47e5, fileSizes - 1 );
     const headers = {

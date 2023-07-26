@@ -38,7 +38,7 @@ class utilStream {
         this.loadFileMetadata = function( req, fileId ) {
             const ranges = req.headers.range;
             return new Promise( resolve => {
-                drive.files.get({ fileId, fields:'id,size,mimeType' })
+                this.GoogleDrive.files.get({ fileId, fields:'id,size,mimeType' })
                     .then( file => {
                         const
                             parts = ranges && ranges.replace(/bytes=/, '').split('-'),
@@ -63,7 +63,7 @@ class utilStream {
             }
         };
         this.renderMetadata = function( res, file ) {
-            return drive.files.get({
+            return this.GoogleDrive.files.get({
                 fileId: file.id,
                 alt: 'media',
                 headers: {
@@ -89,7 +89,7 @@ Client.get("/video/:id/stream", async ( req, res ) => {
     
     if ( !range ) {
         
-        res.writeHead( 206, {
+        res.writeHead( 200, {
             'Content-Length': file.size,
             'Content-Type': file.mimeType
         });

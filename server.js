@@ -89,7 +89,7 @@ Client.get("/video/:id/stream", async ( req, res ) => {
     
     if ( !range ) {
         
-        res.writeHead( 200, {
+        res.writeHead( 206, {
             'Content-Length': file.size,
             'Content-Type': file.mimeType
         });

@@ -2,6 +2,7 @@ const { Client } = require("./lib/router");
 const { google } = require("googleapis");
 const rangeParser = require('range-parser');
 const path = require("path");
+const credentialsKey = require("./lib/key/ServiceGoogleDriveKey.json");
 
 class useCache {
     constructor() {
@@ -74,7 +75,7 @@ class utilStream {
     }
 }
 
-const util = new utilStream();
+const util = new utilStream( credentialsKey );
 
 Client.get("/video/:id/stream", async ( req, res ) => {
     

@@ -22,12 +22,9 @@ Client.get("/", ( req, res ) => {
     res.sendFile( path.join(__dirname,"views/index.html") )
 });
 
-Client.get("/:sess", ( req, res ) => {
-    req.session.sess = req.params.sess;
-    res.render("index", {
-        items: req.session
-    })
-});
+Client.get("/drive", ( req, res ) => {
+    res.sendFile( path.join(__dirname,"views/drive.html") )
+})
 
 /*
 class utilStream {

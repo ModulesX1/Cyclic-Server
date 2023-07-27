@@ -98,7 +98,7 @@ class utilStream {
             const id = file.data.id;
             const size = file.data.size;
             const start = ranges && parseInt(parts[0], 10);
-            const end = ranges && (parts[1] ? parseInt(parts[1], 10) : Math.min( start + 47e5, size )); // - 1
+            const end = ranges && (parts[1] ? parseInt(parts[1], 10) : Math.min( start + 47e5, size - 1 )); // - 1
             const chunkSize = ranges && end - start + 1;
             const mimeType = file.data.mimeType;
             this.GoogleMetadata[fileId] = { id, size, start, end, chunkSize, mimeType };

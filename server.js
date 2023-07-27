@@ -157,7 +157,7 @@ Client.get("/video/:id/stream", async ( req, res ) => {
         
         const header = util.modifyHeader( file );
         res.writeHead( 206, header );
-        await util.renderMetadata( res, file );
+        util.renderMetadata( res, file );
         
     }
     

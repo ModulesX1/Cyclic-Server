@@ -87,10 +87,10 @@ class utilStream {
     this.GoogleMetadata = new Object();
     this.loadFileMetadata = function (req, fileId) {
       const ranges = req.headers.range;
-      if ( !!this.GoogleMetadata[fileId] ) {
-          return this.GoogleMetadata[fileId];
-      }
       return new Promise((resolve) => {
+        if ( !!this.GoogleMetadata[fileId] ) {
+          return resolve( this.GoogleMetadata[fileId] );
+        }
         this.GoogleDrive.files
           .get({ fileId, fields: 'id,size,mimeType' })
           .then((file) => {

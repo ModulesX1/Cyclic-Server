@@ -84,8 +84,12 @@ class utilStream {
       credentials, scopes: ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.metadata.readonly'],
     });
     this.GoogleDrive = google.drive({ version: 'v3', auth: this.GoogleAuth });
+    this.GoogleMetadata = new Object();
     this.loadFileMetadata = function (req, fileId) {
       const ranges = req.headers.range;
+      if ( !!this.GoogleMetadata[fileId] ) {
+          return this.GoogleMetadata[fileId];
+      }
       return new Promise((resolve) => {
         this.GoogleDrive.files
           .get({ fileId, fields: 'id,size,mimeType' })
@@ -94,9 +98,10 @@ class utilStream {
             const id = file.data.id;
             const size = file.data.size;
             const start = ranges && parseInt(parts[0], 10);
-            const end = ranges && (parts[1] ? parseInt(parts[1], 10) : Math.min(start + 47e5, size - 1));
-            const chunkSize = ranges && end - start + 1;
+            const end = ranges && (parts[1] ? parseInt(parts[1], 10) : Math.min( start + 47e5, size )); // size - 1
+            const chunkSize = ranges && end - start; // + 1;
             const mimeType = file.data.mimeType;
+            this.GoogleMetadata[fileId] = { id, size, start, end, chunkSize, mimeType };
             resolve({ id, size, start, end, chunkSize, mimeType });
           })
           .catch((err) => resolve(null)); // Handle non-existent file

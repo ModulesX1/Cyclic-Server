@@ -16,13 +16,13 @@ Client.get("/api/ledger/listing/revenue", async ( req, res ) => {
         })
 })
 
-Client.post("/api/ledger/listing/revenue", async ( req, res ) => {
-    const reference = Database.ref("/LedgerDB/listing/revenue");
+Client.post("/api/ledger/listing", async ( req, res ) => {
+    const reference = Database.ref("/LedgerDB/listing");
     reference.get()
         .then( metadata => {
             metadata.exists()
                 ? res.json( metadata.val() )
-                : res.json( [] );
+                : res.json( {} );
         })
         .catch( error => {
             res.json({
